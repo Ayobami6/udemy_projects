@@ -1,13 +1,13 @@
 import React from 'react'
+import '../Game.css'
 
-
-const onClick = (): void => {
-    alert("On Click Just happened!");
+const onClick = (id): void => {
+    alert("On Click Just happened!" + id);
 }
 
 const GameCircle: React.FC = ({ id, children}) => {
   return (
-    <div onClick={onClick}>
+    <div className={`gamecircle ${id % 2 === 0 ? 'even' : 'odd' }`} onClick={() => onClick(id)}>
     {children}
     </div>
   )
