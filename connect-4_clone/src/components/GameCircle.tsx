@@ -1,16 +1,12 @@
-import React from 'react'
-import '../Game.css'
+import React from 'react';
+import '../Game.css';
 
-const onClick = (id): void => {
-    alert("On Click Just happened!" + id);
-}
-
-const GameCircle: React.FC = ({ id, children}) => {
+const GameCircle: React.FC = ({ id, children, circleClick, className }) => {
   return (
-    <div className={`gamecircle ${id % 2 === 0 ? 'even' : 'odd' }`} onClick={() => onClick(id)}>
-    {children}
+    <div className={`gamecircle ${className} `} onClick={() => circleClick(id)}>
+      {children}
     </div>
-  )
-}
+  );
+};
 
-export default GameCircle
+export default GameCircle;

@@ -1,33 +1,55 @@
-import React from 'react'
-import GameCircle from './GameCircle'
-import '../Game.css'
+import React, { useState } from "react";
+import GameCircle from "./GameCircle";
+import "../Game.css";
+
+const PLAYER_0 = 0;
+const PLAYER_1 = 1;
+const PLAYER_2 = 2;
 
 const GameBoard: React.FC = () => {
-    
+  const [gameboard, setGameboard] = useState(Array(16).fill(PLAYER_0));
+  const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
+
+  const circleClicked = (id) => {
+    console.log("Circle Clicked: " + id);
+    // make a copy of the gameboard
+    // const board = [...gameboard];
+    // board[id] = currentPlayer;
+    // setGameboard(board);
+    setGameboard((prev) => {
+      return prev.map((circle, pos) => {
+        if (pos === id) return currentPlayer;
+        return circle;
+      });
+    });
+    setCurrentPlayer(currentPlayer === PLAYER_1 ? PLAYER_2 : PLAYER_1);
+    console.log(gameboard);
+    console.log(currentPlayer);
+  };
+
+  const renderCircle = (id) => {
     return (
-        <>
-        <div className="gameboard">
-        <div><GameCircle id={1}><div style={{ color: 'red'}}></div></GameCircle></div>
-        <div><GameCircle id={2}></GameCircle></div>
-        <div><GameCircle id={3}><div style={{ color: 'red'}}></div></GameCircle></div>
-        <div><GameCircle id={4}></GameCircle></div>
-        <div><GameCircle id={5}></GameCircle></div>
-        <div><GameCircle id={6}></GameCircle></div>
-        <div><GameCircle id={7}></GameCircle></div>
-        <div><GameCircle id={8}></GameCircle></div>
-        <div><GameCircle id={1}><div style={{ color: 'red'}}></div></GameCircle></div>
-        <div><GameCircle id={2}></GameCircle></div>
-        <div><GameCircle id={3}><div style={{ color: 'red'}}></div></GameCircle></div>
-        <div><GameCircle id={4}></GameCircle></div>
-        <div><GameCircle id={5}></GameCircle></div>
-        <div><GameCircle id={6}></GameCircle></div>
-        <div><GameCircle id={7}></GameCircle></div>
-        <div><GameCircle id={8}></GameCircle></div>
-        </div>
-        
-        </>
-    )
+      <div key={id}>
+        <GameCircle
+          id={id}
+          className={`player_${gameboard[id]}`}
+          circleClick={circleClicked}
+        ></GameCircle>
+      </div>
+    );
+  };
 
-}
+  const circleCount = 16;
+  const circles = [];
 
-export default GameBoard
+  for (let id = 0; id <= circleCount; id++) {
+    circles.push(renderCircle(id));
+  }
+  return (
+    <>
+      <div className='gameboard'>{circles}</div>
+    </>
+  );
+};
+
+export default GameBoard;
