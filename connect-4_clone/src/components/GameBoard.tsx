@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import GameCircle from "./GameCircle";
-import "../Game.css";
+import React, { useState } from 'react';
+import GameCircle from './GameCircle';
+import '../Game.css';
+import Header from './Header';
 
 const PLAYER_0 = 0;
 const PLAYER_1 = 1;
@@ -11,7 +12,7 @@ const GameBoard: React.FC = () => {
   const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
 
   const circleClicked = (id) => {
-    console.log("Circle Clicked: " + id);
+    console.log('Circle Clicked: ' + id);
     // make a copy of the gameboard
     // const board = [...gameboard];
     // board[id] = currentPlayer;
@@ -42,11 +43,12 @@ const GameBoard: React.FC = () => {
   const circleCount = 16;
   const circles = [];
 
-  for (let id = 0; id <= circleCount; id++) {
+  for (let id = 0; id < circleCount; id++) {
     circles.push(renderCircle(id));
   }
   return (
     <>
+      <Header />
       <div className='gameboard'>{circles}</div>
     </>
   );
